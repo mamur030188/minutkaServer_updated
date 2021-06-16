@@ -8,6 +8,7 @@ var FileStore = require('session-file-store')(session);
 var passport = require('passport');
 var authenticate = require('./authenticate');
 var config = require('./config');
+var cors = require('cors')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -31,6 +32,7 @@ connect.then((db) => {
 
 var app = express();
 
+
 // Secure traffic only
 app.all('*', (req, res, next) => {
   if (req.secure) {
@@ -46,6 +48,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser('12345-67890-09876-54321'));
